@@ -1,4 +1,4 @@
-
+name: TEST AutoDispatch
 on: 
   repository_dispatch:
     push:
