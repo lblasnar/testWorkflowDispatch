@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  log-the-inputs:
+  workflow_dispatch:
     runs-on: ubuntu-latest
     steps:
       - run: |
