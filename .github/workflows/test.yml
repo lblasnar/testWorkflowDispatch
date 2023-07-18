@@ -1,6 +1,12 @@
 name: TEST AutoDispatch
 on: 
   workflow_dispatch:
+    inputs:
+     foo:
+       type: string
+       description: 'An input'
+       required: true
+       default: bar
 
 jobs:
   dispatches:
