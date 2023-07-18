@@ -13,4 +13,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "I was ran from another repo"
+          echo "I was ran from another repo with input: ${{ inputs.foo }}"
