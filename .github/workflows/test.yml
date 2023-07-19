@@ -11,7 +11,7 @@ jobs:
   dispatches:
     runs-on: ubuntu-latest
     env:
-       BRANCH: "test/update-readme-${{ github.event.id }}"
+      BRANCH: test/update-readme-${{ github.event.id }}
     steps:
       - name: "Test received event"
         run: |
