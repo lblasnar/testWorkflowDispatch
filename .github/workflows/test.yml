@@ -7,10 +7,9 @@ on:
        description: 'An input'
        required: true
        default: bar
-      
+env:
+  BRANCH="test/update-readme-${{ github.event.id }}"
 jobs:
-  env:
-    BRANCH=test/update-readme-${{ github.event.id }}
   dispatches:
     runs-on: ubuntu-latest
     steps:
