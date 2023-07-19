@@ -27,7 +27,7 @@ jobs:
          CHG=${{ inputs.foo }}
          STR='Message changed from other repo:'
          input="README.md"
-         sed -i -e 's/:.*/ '"$CHG"'/g' README.md
+         sed -i -e 's/:.*/: '"$CHG"'/g' README.md
       - id: step-4
         name: Commit
         uses: EndBug/add-and-commit@v9
