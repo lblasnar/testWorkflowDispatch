@@ -1,2 +1,2 @@
 # testWorkflowDispatch
-Message changed from other repo: 
+Message changed from other repo: bar
