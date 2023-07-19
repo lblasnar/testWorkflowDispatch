@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: "Test received event"
         run: |
-          echo "I was ran from another repo with input: ${{ inputs.foo }}"
+          echo "I was ran from another repo with input: ${{ inputs.foo }} to create PR of $BRANCH_NA;E"
       - uses: actions/checkout@v2
       - name: create-branch
         uses: peterjgrainger/action-create-branch@v2.2.0
