@@ -14,3 +14,12 @@ jobs:
     steps:
       - run: |
           echo "I was ran from another repo with input: ${{ inputs.foo }}"
+      - uses: actions/checkout@v2
+      - name: pull-request
+        uses: repo-sync/pull-request@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          destination_branch: main
+          pr_title: "Automatic Pull from ${{ github.ref }} into master"
+          pr_body: "User ${{ github.actor }} deploy to dev the commit ${{ github.sha }} and after all validations this PR was automatically created."
+          pr_label: "payments initiation"
