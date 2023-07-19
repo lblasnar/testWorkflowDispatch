@@ -7,7 +7,7 @@ on:
        description: 'An input'
        required: true
        default: bar
-
+      
 jobs:
   dispatches:
     runs-on: ubuntu-latest
@@ -19,7 +19,7 @@ jobs:
       - name: create-branch
         uses: peterjgrainger/action-create-branch@v2.2.0
         with:
-          branch: test/update-readme
+          branch: test/update-readme-${{ inputs.foo }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Update readme
@@ -35,13 +35,14 @@ jobs:
           author_name: GitHub Actions
           author_email: noreply@github.com
           message: Update Readme
-          new_branch: test/update-readme
-          push: --force --set-upstream origin test/update-readme
+          new_branch:  test/update-readme-${{ inputs.foo }}
+          push: --force --set-upstream origin test/update-readme-${{ inputs.foo }}
       - name: pull-request
         uses: repo-sync/pull-request@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           destination_branch: main
+          source_branch: test/update-readme-${{ inputs.foo }}
           pr_title: "Automatic Pull from ${{ github.ref }} into master"
           pr_body: "User ${{ github.actor }} deploy to dev the commit ${{ github.sha }} and after all validations this PR was automatically created."
           pr_label: "payments initiation"
