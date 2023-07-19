@@ -1,3 +1,7 @@
+name: Respository Dispacth test
+defaults:
+  run:
+    shell: bash
 on:
   repository_dispatch:
     types: [rep_dispatch]
