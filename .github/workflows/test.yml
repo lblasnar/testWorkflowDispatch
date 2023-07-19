@@ -26,7 +26,7 @@ jobs:
         run: |
           CHG=${{ inputs.foo }}
           STR="Message changed from other repo:"
-          input="/README.md"
+          input="README.md"
           while IFS= read -r line
           do
             if [[ "$line" == *"$STR"* ]]; then
