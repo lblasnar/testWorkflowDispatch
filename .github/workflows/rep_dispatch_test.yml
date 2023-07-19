@@ -5,11 +5,42 @@ defaults:
 on:
   repository_dispatch:
     types: [rep_dispatch]
-    
 jobs:
-  rep_dispatch:
+  dispatches:
     runs-on: ubuntu-latest
+    env:
+      MESSAGE: ${{ github.event.client_payload.test }}
     steps:
-      - env:
-          MESSAGE: ${{ github.event.client_payload.test }}
-        run: echo $MESSAGE
+      - name: "Test received event"
+        run: |
+          echo "I was ran from another repo with input: $MESSAGE to create PR of test/update-readme-${{ github.run_id }}-${{ github.run_attempt }}"
+      - uses: actions/checkout@v2
+      - name: create-branch
+        uses: peterjgrainger/action-create-branch@v2.2.0
+        with:
+          branch: test/update-readme-${{ github.run_id }}-${{ github.run_attempt }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update readme
+        run: |
+         STR='Message changed from other repo:'
+         input="README.md"
+         sed -i -e 's/:.*/: '"$MESSAGE"'/g' README.md
+      - id: step-4
+        name: Commit
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: GitHub Actions
+          author_email: noreply@github.com
+          message: Update Readme
+          new_branch: test/update-readme-${{ github.run_id }}-${{ github.run_attempt }}
+          push: --force --set-upstream origin test/update-readme-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: pull-request
+        uses: repo-sync/pull-request@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          destination_branch: main
+          source_branch: test/update-readme-${{ github.run_id }}-${{ github.run_attempt }}
+          pr_title: "Automatic Pull from ${{ github.ref }} into main"
+          pr_body: "User ${{ github.actor }} deploy to dev the commit ${{ github.sha }} and after all validations this PR was automatically created."
+          pr_label: "minor"
