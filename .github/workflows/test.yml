@@ -43,6 +43,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           destination_branch: main
           source_branch: test/update-readme-${{ inputs.foo }}
-          pr_title: "Automatic Pull from ${{ github.ref }} into master"
+          pr_title: "Automatic Pull from ${{ github.ref }} into main"
           pr_body: "User ${{ github.actor }} deploy to dev the commit ${{ github.sha }} and after all validations this PR was automatically created."
-          pr_label: "payments initiation"
+          pr_label: "minor"
