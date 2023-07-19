@@ -24,15 +24,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Update readme
         run: |
-          CHG=${{ inputs.foo }}
-          STR="Message changed from other repo:"
-          input="README.md"
-          while IFS= read -r line
-          do
-            if [[ "$line" == *"$STR"* ]]; then
-              sed -E 's/:.*/ foo/g' $line
-            fi
-          done < "$input"
+         CHG=${{ inputs.foo }}
+         STR='Message changed from other repo:'
+         input="README.md"
+         sed -i -e 's/:.*/ '"$CHG"'/g' README.md
       - id: step-4
         name: Commit
         uses: EndBug/add-and-commit@v9
